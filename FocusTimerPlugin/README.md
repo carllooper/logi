@@ -35,7 +35,7 @@ The project layout, `.csproj`, helpers and `.vscode` files follow the template t
 
 ## Build and run
 
-Prerequisites, from the docs: Logi Options+ or Loupedeck (this installs the Logi Plugin Service) and the .NET 8 SDK.
+Prerequisites: Logi Options+ or Loupedeck (this installs the Logi Plugin Service) and the .NET 10 SDK. The docs say .NET 8, but the PluginApi.dll that ships with Logi Plugin Service 6.4 targets .NET 10.
 
 ```bash
 dotnet tool install --global LogiPluginTool   # only needed for packaging
