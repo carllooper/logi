@@ -1,0 +1,108 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ConsoleDeck.App.MainWindow"
+        Title="Console Deck"
+        Width="1040" Height="760" MinWidth="900" MinHeight="680"
+        Background="#15171A">
+
+  <Window.Styles>
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="#1F2227" />
+      <Setter Property="CornerRadius" Value="14" />
+      <Setter Property="Padding" Value="20" />
+    </Style>
+    <Style Selector="TextBlock.cardTitle">
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#E6E8EB" />
+      <Setter Property="Margin" Value="0,0,0,4" />
+    </Style>
+    <Style Selector="ListBox#EventLog ListBoxItem">
+      <Setter Property="Padding" Value="4,1" />
+      <Setter Property="MinHeight" Value="0" />
+    </Style>
+    <Style Selector="TextBlock.hint">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Foreground" Value="#8A9099" />
+      <Setter Property="Margin" Value="0,0,0,16" />
+    </Style>
+  </Window.Styles>
+
+  <Grid RowDefinitions="Auto,*,Auto" Margin="24">
+
+    <!-- Header: title and connection status -->
+    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,20">
+      <StackPanel>
+        <TextBlock Text="Console Deck" FontSize="26" FontWeight="Bold" Foreground="#F2F4F7" />
+        <TextBlock Text="Every key, button, dial and roller of the MX Creative Console, live." Foreground="#8A9099" />
+      </StackPanel>
+      <Border Grid.Column="1" x:Name="StatusPill" CornerRadius="16" Padding="14,6" VerticalAlignment="Center" Background="#3A2A1A">
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <Ellipse x:Name="StatusDot" Width="10" Height="10" Fill="#F0A030" VerticalAlignment="Center" />
+          <TextBlock x:Name="StatusText" Text="Waiting for the plugin…" Foreground="#F2F4F7" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+    </Grid>
+
+    <!-- The two devices -->
+    <Grid Grid.Row="1" ColumnDefinitions="Auto,20,*">
+
+      <Border Grid.Column="0" Classes="card">
+        <StackPanel>
+          <TextBlock Classes="cardTitle" Text="MX Creative Keypad" />
+          <TextBlock Classes="hint" Text="Press a key to toggle it. Click a tile to do the same from here." />
+          <UniformGrid x:Name="KeyGrid" Rows="3" Columns="3" Width="390" Height="390" />
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="2" Classes="card">
+        <StackPanel>
+          <TextBlock Classes="cardTitle" Text="MX Creative Dialpad" />
+          <TextBlock Classes="hint" Text="Turn the dial and the roller, press the buttons. Mouse wheel works here too." />
+
+          <StackPanel Orientation="Horizontal" Spacing="36" HorizontalAlignment="Center">
+
+            <!-- Dial: a 270° track, a value arc, and a needle -->
+            <StackPanel Spacing="8">
+              <Panel x:Name="DialPanel" Width="230" Height="230" Background="Transparent">
+                <Ellipse Fill="#2A2E35" Margin="20" />
+                <Arc x:Name="DialTrack" StartAngle="135" SweepAngle="270" Stroke="#353A42" StrokeThickness="12" Margin="6" />
+                <Arc x:Name="DialArc" StartAngle="135" SweepAngle="135" Stroke="#4FC3F7" StrokeThickness="12" StrokeLineCap="Round" Margin="6" />
+                <Canvas x:Name="DialNeedle" Width="230" Height="230">
+                  <Line StartPoint="115,115" EndPoint="115,45" Stroke="#F2F4F7" StrokeThickness="4" StrokeLineCap="Round" />
+                </Canvas>
+                <Ellipse Width="18" Height="18" Fill="#F2F4F7" />
+                <TextBlock x:Name="DialValue" Text="50" FontSize="30" FontWeight="Bold" Foreground="#F2F4F7"
+                           HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,30" />
+              </Panel>
+              <TextBlock Text="Dial" HorizontalAlignment="Center" Foreground="#8A9099" />
+            </StackPanel>
+
+            <!-- Roller: a vertical track with a moving thumb -->
+            <StackPanel Spacing="8">
+              <Panel x:Name="RollerPanel" Width="56" Height="230" Background="Transparent">
+                <Border Width="14" CornerRadius="7" Background="#353A42" />
+                <Canvas x:Name="RollerCanvas" Width="56" Height="230">
+                  <Border x:Name="RollerFill" Width="14" CornerRadius="7" Background="#4FC3F7" Canvas.Left="21" />
+                  <Border x:Name="RollerThumb" Width="44" Height="22" CornerRadius="11" Background="#F2F4F7" Canvas.Left="6" />
+                </Canvas>
+              </Panel>
+              <TextBlock x:Name="RollerValue" Text="Roller 50" HorizontalAlignment="Center" Foreground="#8A9099" />
+            </StackPanel>
+          </StackPanel>
+
+          <TextBlock Text="Buttons" Foreground="#8A9099" Margin="0,20,0,8" />
+          <UniformGrid x:Name="ButtonGrid" Rows="1" Columns="4" Height="84" />
+        </StackPanel>
+      </Border>
+    </Grid>
+
+    <!-- Event log -->
+    <Border Grid.Row="2" Classes="card" Margin="0,20,0,0" Padding="16,12">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Classes="cardTitle" Text="Events" />
+        <ListBox x:Name="EventLog" Height="110" Background="Transparent" FontFamily="Consolas,Menlo,monospace" FontSize="12" />
+      </DockPanel>
+    </Border>
+  </Grid>
+</Window>
